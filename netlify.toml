@@ -1,0 +1,6 @@
+[[redirects]]
+# update these to have proper paths once I determine the correct domains/URLs
+from = ""
+to = ""
+status = 301
+force = true
