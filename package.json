@@ -17,6 +17,17 @@
       "start": "next start",
       "type-check": "tsc --noEmit"
    },
+   "scripts-info": {
+      "build": "next build",
+      "dev": "next dev",
+      "graphql-codegen:generate": "graphql-codegen -r dotenv/config --config codegen.ts",
+      "graphql-codegen:watch": "graphql-codegen --watch -r dotenv/config --config codegen.ts",
+      "lint": "next lint",
+      "prepare": "husky install",
+      "setup": "./bin/setup.sh",
+      "start": "next start",
+      "type-check": "tsc --noEmit"
+   },
    "lint-staged": {
       "src/**/*.{js,jsx,ts,tsx}": [
          "eslint --quiet --fix"
@@ -71,6 +82,7 @@
       "i18next": "^21.9.2",
       "i18next-http-backend": "^1.4.4",
       "lint-staged": "^13.0.3",
+      "npm-scripts-info": "^0.3.9",
       "postcss": "^8.4.19",
       "prettier": "^2.7.1",
       "prettier-plugin-tailwindcss": "^0.2.1",
