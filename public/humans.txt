@@ -1,0 +1,14 @@
+/* TEAM */
+Name: Gabriel A. Lujan
+Title: Owner
+Location: United States
+
+/* SITE */
+URL: https://anewlevelmedia.com
+Last Update: 12-Apr-2024 @ 23:09 PT
+Standards: TBD
+Components: TBD
+Software: Next.js, Contentful, GraphQL, React
+
+/* NOTES */
+Schema: https://humanstxt.org/Standard.html

@@ -1,5 +1,5 @@
 [build]
-  command = "NEXT_PUBLIC_BASE_URL=\"${NEXT_PUBLIC_BASE_URL:-$URL}\" yarn build"
+command = "NEXT_PUBLIC_BASE_URL=\"${NEXT_PUBLIC_BASE_URL:-$URL}\" yarn build"
 
 [[redirects]]
 # update these to have proper paths once I determine the correct domains/URLs

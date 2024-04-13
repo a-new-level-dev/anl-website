@@ -13,76 +13,78 @@ import { client, previewClient } from '@src/lib/client';
 import { revalidateDuration } from '@src/pages/utils/constants';
 
 const Page = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { t } = useTranslation();
+   const { t } = useTranslation();
 
-  const page = useContentfulLiveUpdates(props.page);
-  const posts = useContentfulLiveUpdates(props.posts);
+   const page = useContentfulLiveUpdates(props.page);
+   const posts = useContentfulLiveUpdates(props.posts);
 
-  if (!page?.featuredBlogPost || !posts) return;
+   if (!page?.featuredBlogPost || !posts) {
+      return;
+   }
 
-  return (
-    <>
-      {page.seoFields && <SeoFields {...page.seoFields} />}
-      <Container>
-        <Link href={`/${page.featuredBlogPost.slug}`}>
-          <ArticleHero article={page.featuredBlogPost} />
-        </Link>
-      </Container>
+   return (
+      <>
+         {page.seoFields && <SeoFields {...page.seoFields} />}
+         <Container>
+            <Link href={`/${page.featuredBlogPost.slug}`}>
+               <ArticleHero article={page.featuredBlogPost} />
+            </Link>
+         </Container>
 
-      {/* Tutorial: contentful-and-the-starter-template.md */}
-      {/* Uncomment the line below to make the Greeting field available to render */}
-      {/*<Container>*/}
-      {/*  <div className="my-5 bg-colorTextLightest p-5 text-colorBlueLightest">{page.greeting}</div>*/}
-      {/*</Container>*/}
+         {/* Tutorial: contentful-and-the-starter-template.md */}
+         {/* Uncomment the line below to make the Greeting field available to render */}
+         {/*<Container>*/}
+         {/*  <div className="my-5 bg-colorTextLightest p-5 text-colorBlueLightest">{page.greeting}</div>*/}
+         {/*</Container>*/}
 
-      <Container className="my-8  md:mb-10 lg:mb-16">
-        <h2 className="mb-4 md:mb-6">{t('landingPage.latestArticles')}</h2>
-        <ArticleTileGrid className="md:grid-cols-2 lg:grid-cols-3" articles={posts} />
-      </Container>
-    </>
-  );
+         <Container className="my-8  md:mb-10 lg:mb-16">
+            <h2 className="mb-4 md:mb-6">{t('landingPage.latestArticles')}</h2>
+            <ArticleTileGrid className="md:grid-cols-2 lg:grid-cols-3" articles={posts} />
+         </Container>
+      </>
+   );
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale, draftMode: preview }) => {
-  try {
-    const gqlClient = preview ? previewClient : client;
+   try {
+      const gqlClient = preview ? previewClient : client;
 
-    const landingPageData = await gqlClient.pageLanding({ locale, preview });
-    const page = landingPageData.pageLandingCollection?.items[0];
+      const landingPageData = await gqlClient.pageLanding({ locale, preview });
+      const page = landingPageData.pageLandingCollection?.items[0];
 
-    const blogPostsData = await gqlClient.pageBlogPostCollection({
-      limit: 6,
-      locale,
-      order: PageBlogPostOrder.PublishedDateDesc,
-      where: {
-        slug_not: page?.featuredBlogPost?.slug,
-      },
-      preview,
-    });
-    const posts = blogPostsData.pageBlogPostCollection?.items;
+      const blogPostsData = await gqlClient.pageBlogPostCollection({
+         limit: 6,
+         locale,
+         order: PageBlogPostOrder.PublishedDateDesc,
+         where: {
+            slug_not: page?.featuredBlogPost?.slug,
+         },
+         preview,
+      });
+      const posts = blogPostsData.pageBlogPostCollection?.items;
 
-    if (!page) {
+      if (!page) {
+         return {
+            revalidate: revalidateDuration,
+            notFound: true,
+         };
+      }
+
       return {
-        revalidate: revalidateDuration,
-        notFound: true,
+         revalidate: revalidateDuration,
+         props: {
+            previewActive: !!preview,
+            ...(await getServerSideTranslations(locale)),
+            page,
+            posts,
+         },
       };
-    }
-
-    return {
-      revalidate: revalidateDuration,
-      props: {
-        previewActive: !!preview,
-        ...(await getServerSideTranslations(locale)),
-        page,
-        posts,
-      },
-    };
-  } catch {
-    return {
-      revalidate: revalidateDuration,
-      notFound: true,
-    };
-  }
+   } catch {
+      return {
+         revalidate: revalidateDuration,
+         notFound: true,
+      };
+   }
 };
 
 export default Page;
