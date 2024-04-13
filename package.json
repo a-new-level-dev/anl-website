@@ -1,11 +1,34 @@
 {
-   "name": "a-new-level-website",
-   "version": "0.1.0",
-   "private": true,
+   "author": "Gabriel A. Lujan",
+   "bugs": {
+      "url": "https://<some JIRA location>"
+   },
+   "description": "The main website displaying all content, news & updates for A New Level Media.",
    "engines": {
       "node": ">=20",
       "npm": "Please use Yarn"
    },
+   "homepage": "https://anewlevelmedia.com",
+   "keywords": [
+      "contentful",
+      "graphql",
+      "next.js",
+      "next",
+      "server side rendering",
+      "ssr"
+   ],
+   "license": "CC BY-NC-ND 3.0",
+   "lint-staged": {
+      "src/**/*.{js,jsx,ts,tsx}": [
+         "eslint --quiet --fix"
+      ],
+      "src/**/*.{json,js,ts,jsx,tsx}": [
+         "prettier --write"
+      ]
+   },
+   "name": "a-new-level-website",
+   "private": true,
+   "version": "0.1.0",
    "scripts": {
       "==========================================[ INFO ]==========================================": "",
       "——————————————————————————————————————————[ SERVE ]——————————————————————————————————————————": "",
@@ -44,15 +67,6 @@
       "start": "next start",
       "type-check": "tsc --noEmit"
    },
-   "lint-staged": {
-      "src/**/*.{js,jsx,ts,tsx}": [
-         "eslint --quiet --fix"
-      ],
-      "src/**/*.{json,js,ts,jsx,tsx}": [
-         "prettier --write"
-      ]
-   },
-   "license": "MIT",
    "dependencies": {
       "@contentful/f36-icons": "^4.23.2",
       "@contentful/f36-tokens": "^4.0.1",
