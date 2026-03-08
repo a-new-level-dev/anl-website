@@ -75,13 +75,13 @@ $~$
 To install the necessary dependencies, run:
 
 ```bash
-yarn
+bun install
 ```
 
 ### Run the Starter Template in development mode
 
 ```bash
-yarn dev
+bun run dev
 ```
 
 The Starter Template should be up and running on `http://localhost:3000`.
@@ -157,8 +157,8 @@ We use `graphql-codegen` to generate a type-safe API client, utilizing [GraphQLC
 
 In order to (re-)generate the GraphQL schema, types and sdk, please use either of the following commands:
 
-- `yarn graphql-codegen:generate` generates a schema, types and code to fetch data from the Contentful APIs
-- `yarn graphql-codegen:watch` similar to the `generate` command, but it runs as a watch task which will rerun the steps when changes are made in the `.graphql` files
+- `bun run graphql-codegen:generate` generates a schema, types and code to fetch data from the Contentful APIs
+- `bun run graphql-codegen:watch` similar to the `generate` command, but it runs as a watch task which will rerun the steps when changes are made in the `.graphql` files
 
 The first steps of the codegen generate files that contain the GraphQL schema and matching TypeScript types. All these files are located in the `src/lib/graphql` folder.
 They're generated to the `src/lib/__generated` folder and ought to be committed once altered/added to the repository.
